@@ -1,25 +1,26 @@
 import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.LinkedHashSet;
+
+import static java.util.stream.Collectors.joining;
 
 public class RemoveDuplicateWords {
-    public static String removeDuplicateWords(String s){
-        // Your code here, good sir.
-        return Arrays.asList(s.split(""))
-                .stream()
+
+    public static String removeDuplicateWords(String s) {
+        return new LinkedHashSet<String>(Arrays.asList(s.split(" ")))
+                .toString()
+                .replaceAll("(^\\[|\\]$)", "")
+                .replace(", ", " ");
+    }
+
+    public static String removeDuplicate(String s) {
+        return Arrays.stream(s.split(" "))
                 .distinct()
-                .collect(Collectors.joining());
+                .collect(joining(" "));
     }
 
     public static void main(String[] args) {
-        String str ="my cat is my cat fat";
-        Arrays.asList(str).stream()
-                .map(s -> s.split(" "))
-                .distinct()
-                .toArray();
-
-
-str.replace("cat","dog");
-        System.out.println(str.replace("cat","dog"));
-        System.out.println(str.replaceAll("\\s","0"));
+        String str = "my cat is my cat fat";
+          System.out.println(removeDuplicateWords(str));
+        System.out.println(removeDuplicate(str));
     }
 }
